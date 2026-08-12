@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demo-service
+  jpa:
+    hibernate:
+      # Never let Hibernate create or mutate schema. The schema is owned by the
+      # database repo; the app only *validates* that its Entities match.
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  # Real datasource is provided per environment; in tests Testcontainers wires
+  # it via @ServiceConnection (see src/test).

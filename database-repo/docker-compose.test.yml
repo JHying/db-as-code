@@ -1,0 +1,43 @@
+# docker-compose.test.yml — full-stack integration environment (Stage 5).
+# Brings up the data stores seeded from the published schema, plus the service
+# images, for cross-service E2E tests in an isolated environment.
+services:
+  oracle:
+    image: gvenzl/oracle-free:slim-faststart
+    environment:
+      ORACLE_PASSWORD: testpass
+      APP_USER: app
+      APP_USER_PASSWORD: apppass
+    volumes:
+      # the published full schema initialises the DB on first start
+      - ./oracle-ddl.sql:/container-entrypoint-initdb.d/01-schema.sql:ro
+      - ./test-dml/test-01-init.sql:/container-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - ./mongo-ddl.js:/docker-entrypoint-initdb.d/mongo-ddl.js:ro
+
+  redis:
+    image: redis:7-alpine
+
+  demo-service:
+    image: ${DEMO_SERVICE_IMAGE:-demo-service:local}
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle:1521/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: app
+      SPRING_DATASOURCE_PASSWORD: apppass
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/app
+      SPRING_DATA_REDIS_HOST: redis
+    depends_on:
+      oracle:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_started

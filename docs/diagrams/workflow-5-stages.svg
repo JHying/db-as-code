@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 446" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <filter id="softShadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- panel -->
+  <rect x="12" y="12" width="1176" height="418" rx="16" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" filter="url(#softShadow)"/>
+
+  <!-- title -->
+  <text x="40" y="52" font-size="22" font-weight="700" fill="#0F172A">Database-as-Code — Schema Change Lifecycle</text>
+  <text x="40" y="78" font-size="13" fill="#64748B">From a developer branch to a synchronised, drift-free production schema</text>
+
+  <!-- lane labels + bars -->
+  <text x="255" y="116" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="#2563EB" text-anchor="middle">APPLICATION REPO</text>
+  <rect x="40" y="126" width="430" height="3" rx="1.5" fill="#2563EB"/>
+  <text x="715" y="116" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="#0D9488" text-anchor="middle">DATABASE REPO · SOURCE OF TRUTH</text>
+  <rect x="500" y="126" width="430" height="3" rx="1.5" fill="#0D9488"/>
+  <text x="1060" y="116" font-size="10.5" font-weight="700" letter-spacing="0.08em" fill="#D97706" text-anchor="middle">TEST</text>
+  <rect x="960" y="126" width="200" height="3" rx="1.5" fill="#D97706"/>
+
+  <!-- ============ Card 1 ============ -->
+  <rect x="40" y="150" width="200" height="176" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+  <circle cx="66" cy="178" r="15" fill="#2563EB"/>
+  <text x="66" y="183" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+  <text x="54" y="216" font-size="13" font-weight="700" fill="#0F172A">Local development</text>
+  <text x="54" y="240" font-size="11" fill="#475569">app-repo branch</text>
+  <text x="54" y="261" font-size="11" fill="#475569">Entity + pending DDL</text>
+  <text x="54" y="282" font-size="11" fill="#475569">TestContainers + validate</text>
+
+  <!-- ============ Card 2 ============ -->
+  <rect x="270" y="150" width="200" height="176" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+  <circle cx="296" cy="178" r="15" fill="#2563EB"/>
+  <text x="296" y="183" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+  <text x="284" y="216" font-size="13" font-weight="700" fill="#0F172A">MR + CI gates</text>
+  <text x="284" y="240" font-size="11" fill="#475569">header · lint · conflict</text>
+  <text x="284" y="261" font-size="11" fill="#475569">TestContainers test</text>
+  <text x="284" y="282" font-size="11" fill="#475569">Hibernate validate</text>
+
+  <!-- ============ Card 3 ============ -->
+  <rect x="500" y="150" width="200" height="176" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+  <circle cx="526" cy="178" r="15" fill="#0D9488"/>
+  <text x="526" y="183" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+  <text x="514" y="216" font-size="13" font-weight="700" fill="#0F172A">Sync → source of truth</text>
+  <text x="514" y="240" font-size="11" fill="#475569">TAG de-dup</text>
+  <text x="514" y="261" font-size="11" fill="#475569">squash-regenerate DDL</text>
+  <text x="514" y="282" font-size="11" fill="#475569">changelog + archive</text>
+
+  <!-- ============ Card 4 ============ -->
+  <rect x="730" y="150" width="200" height="176" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+  <circle cx="756" cy="178" r="15" fill="#0D9488"/>
+  <text x="756" y="183" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+  <text x="744" y="216" font-size="13" font-weight="700" fill="#0F172A">Multi-environment</text>
+  <text x="744" y="240" font-size="11" fill="#475569">develop → staging → prod</text>
+  <text x="744" y="261" font-size="11" fill="#475569">live apply, data kept</text>
+  <text x="744" y="282" font-size="11" fill="#475569">Flyway / Liquibase</text>
+
+  <!-- ============ Card 5 ============ -->
+  <rect x="960" y="150" width="200" height="176" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+  <circle cx="986" cy="178" r="15" fill="#D97706"/>
+  <text x="986" y="183" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+  <text x="974" y="216" font-size="13" font-weight="700" fill="#0F172A">Integration test</text>
+  <text x="974" y="240" font-size="11" fill="#475569">schema via Maven</text>
+  <text x="974" y="261" font-size="11" fill="#475569">singleton container</text>
+  <text x="974" y="282" font-size="11" fill="#475569">compose E2E stack</text>
+
+  <!-- chevrons between cards -->
+  <g stroke="#94A3B8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="250,230 260,238 250,246"/>
+    <polyline points="480,230 490,238 480,246"/>
+    <polyline points="710,230 720,238 710,246"/>
+    <polyline points="940,230 950,238 940,246"/>
+  </g>
+
+  <!-- footer -->
+  <line x1="40" y1="356" x2="1160" y2="356" stroke="#E2E8F0" stroke-width="1.2"/>
+  <text x="40" y="380" font-size="11.5" fill="#475569"><tspan font-weight="700" fill="#0F172A">Squash mode:</tspan> the full schema is regenerated from <tspan font-style="italic">current + pending</tspan> — never an append-only chain of ALTERs.</text>
+  <text x="40" y="402" font-size="11.5" fill="#475569"><tspan font-weight="700" fill="#0F172A">Two-layer local protection:</tspan> TestContainers initialises base + pending DDL · Hibernate <tspan font-style="italic">validate</tspan> enforces Entity ↔ schema match.</text>
+</svg>
